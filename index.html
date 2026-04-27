@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+  <div id="progress"></div>
+
+  <div class="controls">
+    <label>
+      Value
+      <input type="number" id="valueInput" min="0" max="100" value="25">
+    </label>
+
+    <label class="switch">
+      <input type="checkbox" id="animateToggle">
+      <span>Animate</span>
+    </label>
+
+    <label class="switch">
+      <input type="checkbox" id="hideToggle">
+      <span>Hide</span>
+    </label>
+  </div>
+</div>
+
+<script src="progress.js"></script>
+</body>
+</html>
