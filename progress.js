@@ -81,6 +81,8 @@ const hideToggle = document.getElementById("hideToggle");
 
 valueInput.addEventListener("input", (e) => {
   progress.setValue(e.target.value);
+
+
 });
 
 animateToggle.addEventListener("change", (e) => {
@@ -94,6 +96,28 @@ hideToggle.addEventListener("change", (e) => {
 
 progress.setValue(25);
 
+// Additional feature : progress counter
+
+const progressCounter = document.getElementById("progressCounter");
+
+progressCounter.textContent = valueInput.value.toString() + '%'
+
+valueInput.addEventListener("input", (e) => {
+  const val = Math.max(0, Math.min(100, Number(e.target.value)));
+
+  progressCounter.textContent = val.toString() + '%'
+});
+
+hideToggle.addEventListener("change", (e) => {
+  const checked = e.target.checked;
+
+  if (checked) {
+    progressCounter.classList.add('hidden')
+  }
+  else {
+    progressCounter.classList.remove('hidden')
+  }
+});
 
 // Additional feature: Load/Reset button
 
@@ -134,11 +158,14 @@ loadResetBtn.addEventListener("click", () => {
             animateToggle.checked = false;
             animateToggle.disabled = true;
 
+            valueInput.disabled = true
+
             return;
         }
 
         progress.setValue(progress.value + 1);
-    
+        
+        progressCounter.textContent = progress.value + '%'
         
     }, 100);
     }
@@ -149,5 +176,8 @@ loadResetBtn.addEventListener("click", () => {
         loadResetBtn.disabled = false;
 
         animateToggle.disabled = false;
+        valueInput.disabled = false;
+
+        progressCounter.textContent = progress.value.toString() + '%'
     }
 });
