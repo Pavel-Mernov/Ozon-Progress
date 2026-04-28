@@ -93,3 +93,61 @@ hideToggle.addEventListener("change", (e) => {
 
 
 progress.setValue(25);
+
+
+// Additional feature: Load/Reset button
+
+const loadResetBtn = document.getElementById("loadResetBtn");
+
+let interval = null;
+
+let loadedState = 'normal'; // 'normal', 'loading', 'loaded'
+
+loadResetBtn.addEventListener("click", () => {
+
+    if (loadedState === 'normal') {
+    if (interval) return;
+
+    
+
+    loadedState = 'loading';
+    loadResetBtn.textContent = 'Loading...';
+    loadResetBtn.disabled = true;
+
+    valueInput.disabled = true;
+    
+
+    interval = setInterval(() => {
+        if (progress.value >= 100) {
+            clearInterval(interval);
+            
+            interval = null;
+            
+            loadedState = 'loaded';
+            loadResetBtn.textContent = 'Reset';
+            loadResetBtn.disabled = false;
+
+            valueInput.disabled = false;
+
+            progress.setAnimated(false);
+            
+            animateToggle.checked = false;
+            animateToggle.disabled = true;
+
+            return;
+        }
+
+        progress.setValue(progress.value + 1);
+    
+        
+    }, 100);
+    }
+    else if (loadedState === 'loaded') {
+        progress.setValue(valueInput.value);
+        loadedState = 'normal';
+        loadResetBtn.textContent = 'Load';
+        loadResetBtn.disabled = false;
+
+        animateToggle.disabled = false;
+    }
+});
